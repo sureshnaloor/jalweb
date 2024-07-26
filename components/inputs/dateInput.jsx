@@ -9,6 +9,7 @@ function Dateinput({
   minval,
   maxval,
   labelcolor,
+  defaultValue,
 }) {
   return (
     <div>
@@ -24,7 +25,7 @@ function Dateinput({
           className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
           name={name}
           id={name}
-          // defaultValue={defaultValue}
+          defaultValue={defaultValue}
 
           min={minval}
           max={maxval}
@@ -32,6 +33,7 @@ function Dateinput({
             valueAsDate: true,
             required: { value: true, message: "mandatory to fill" },
           })}
+          
         />
       </div>
       <div className="flex justify-between">

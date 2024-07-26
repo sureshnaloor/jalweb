@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import Textinput from "@/components/inputs/textInput";
 import TextareaInputcomponent from "@/components/inputs/textareaInput";
 import Numberinput from "@/components/inputs/numberInput";
@@ -11,6 +11,7 @@ import Radioinput from "@/components/inputs/radioInput";
 import { CircleX, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ReadonlyDisplay from "@/components/inputs/readonlyDisplay";
+
 
 function AddSimcard() {
   const {
@@ -28,9 +29,11 @@ function AddSimcard() {
     router.push(url);
   };  
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    // setLoading(true);
+   
     try {
       data = {...data, type: "mobile"};
       console.log(data); 
@@ -43,48 +46,61 @@ function AddSimcard() {
       });
       if (Response.ok) {
         console.log("success", data);
-        setLoading(false);
+        // setLoading(false);
         redirect("/telecom/simcard");
       }
     reset();
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      // setLoading(false);
     }
     
   };
   // console.log(watch("name"));
 
-  const selectchoice = [
-    { value: "", label: "Select category" },
-    { value: "TV", label: "TV/Monitors" },
-    { value: "PC", label: "PC" },
-    { value: "GA", label: "Gaming/Console" },
-    { value: "PH", label: "Phones" },
+  const planchoice = [
+    { value: "", label: "Select Plan" },
+    { value: "Flex50", label: "FLEX50" },
+    { value: "Flex80", label: "FLEX80" },
+    { value: "Flex100", label: "FLEX100" },
+    
   ];
 
-  const telecomselectchoice = [
-    { value: "mobile", label: "mobile" },
-    { value: "landline", label: "landline" },
-    { value: "router", label: "router" },
+  const departmentchoice = [
+    { value: "", label: "Select Department" },
+    { value: "MM", label: "MMD" },
+    { value: "FI", label: "FINANCE" },
+    { value: "ES", label: "ESD" },
+    {value: "IT", label: "ITD" },
+    {value: "HR", label: "HRD" },
+    {value: "IS", label: "ISD" },
+    {value: "MG", label: "Management" },
+    
   ];
 
-  const radiochoice = [
-    {
-      value: "mobile",
-      label: "Mobile",
-      name: "mobile",
-      groupname: "type",
-      title: "Type",
-    },
-    {
-      value: "landline",
-      label: "Landline",
-      name: "landline",
-      groupname: "type",
-    },
-    { value: "router", label: "Router", name: "router", groupname: "type" },
+  const sectionchoice = [
+    { value: "", label: "Select Section" },
+    { value: "IT", label: "IT" },
+    { value: "HR", label: "HR" },
+    { value: "IS", label: "IS" },
+    { value: "MM", label: "MM" },
+    { value: "ES", label: "ES" },
+    { value: "FI", label: "FI" },
+    { value: "MG", label: "MG" },
+    
   ];
+
+  const locationchoice = [
+    { value: "", label: "Select Location" },
+    { value: "IT", label: "IT" },
+    { value: "HR", label: "HR" },
+    { value: "IS", label: "IS" },
+    { value: "MM", label: "MM" },
+    { value: "ES", label: "ES" },
+    { value: "FI", label: "FI" },
+    { value: "MG", label: "MG" },
+    
+  ];  
 
   return (
     <div className="w-full pb-12 bg-stone-100 max-w-5xl mt-1 mx-auto max-h-[900px] border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
@@ -97,15 +113,7 @@ function AddSimcard() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-6 sm:grid-cols-4">
-          {/* <div className="col-span-1">
-            <SelectInput
-              register={register}
-              errors={errors}
-              label="Type:"
-              name="type"
-              choice={telecomselectchoice}
-            />
-          </div> */}
+         
           <div className="col-span-1">
             <ReadonlyDisplay
               readonlydata="Mobile SIM"
@@ -155,7 +163,7 @@ function AddSimcard() {
               errors={errors}
               label="Plan"
               name="plan"
-              choice={selectchoice}
+              choice={planchoice}
               labelcolor="text-sky-500 dark:text-sky-200"
             />
           </div>
@@ -215,7 +223,7 @@ function AddSimcard() {
               errors={errors}
               label="Department"
               name="department"
-              choice={selectchoice}
+              choice={departmentchoice}
               labelcolor="text-sky-500 dark:text-sky-200"
             />
           </div>
@@ -226,7 +234,7 @@ function AddSimcard() {
               errors={errors}
               label="Section"
               name="section"
-              choice={selectchoice}
+              choice={sectionchoice}
               
             />
           </div>
@@ -237,7 +245,7 @@ function AddSimcard() {
               errors={errors}
               label="Location"
               name="location"
-              choice={selectchoice}
+              choice={locationchoice}
               labelcolor="text-sky-500 dark:text-sky-200"
             />
           </div>
@@ -295,7 +303,7 @@ function AddSimcard() {
         <div className="mt-3 w-1/2 mx-auto">
           <button
             type="submit"
-            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className={`w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800${null}`}
           >
             {" "}
             Add the simcard

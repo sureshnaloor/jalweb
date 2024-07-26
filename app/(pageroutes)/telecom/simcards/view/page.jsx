@@ -1,6 +1,8 @@
 import clientPromise from "@/lib/mongoconnect";
 import Link from "next/link";
 import SearchComponent from "@/components/ui/utility/Search";
+import { Pencil, Trash, Eye } from "lucide-react";
+
 
 const Simcards = async ({searchParams}) => {
   const query = searchParams?.query || "1234567890";
@@ -64,6 +66,12 @@ const Simcards = async ({searchParams}) => {
               scope="col"
               className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
             >
+              Date purchased:
+            </th>
+            <th
+              scope="col"
+              className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
+            >
               Action
             </th>
           </tr>
@@ -111,22 +119,44 @@ const Simcards = async ({searchParams}) => {
                 </td>
 
                 <td className="px-2 py-4 min-w-[200px] max-w-[200px] whitespace-nowrap">
-                  <h1>{simrecord.credit_limit?.toString()} </h1>{" "}
+                  <h1>{simrecord["credit-limit"]} </h1>{" "}  
                   <h2> {simrecord.plan} </h2>
                 </td>
-
+                
                 <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
                   <h2 className="font-stone-800 italic text-[10px]">
                     {simrecord.type}
                   </h2>
                 </td>
+
                 <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
+                  <h2 className="font-stone-800 italic text-[10px]">
+                    {simrecord["purchasedate"] ? simrecord["purchasedate"].split("T")[0] : null}  
+                  </h2>
+                </td>
+                
+                
+                <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
+                  <div className="flex justify-start items-center gap-3">
                   <Link
-                    href={`/telecom/simcard/view/${simrecord.id}`}
+                    href={{pathname: `/telecom/simcards/edit/${simrecord._id}`, query: {type: simrecord.type, department: simrecord.department, section: simrecord.section, location: simrecord.location, plan: simrecord.plan, "credit-limit":simrecord["credit-limit"], purchasedate: simrecord.purchasedate, "account-number": simrecord["account-number"], "service-number": simrecord["service-number"], "emp-number": simrecord["emp-number"], "employee-name": simrecord["employee-name"], coordinator: simrecord.coordinator, notes: simrecord.notes}}} 
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
-                    View
+                    <Pencil className="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 w-3 cursor-pointer" />  
                   </Link>
+                  <Link
+                    href={`/telecom/simcards/delete/${simrecord._id}`}
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    <Trash className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 w-3 cursor-pointer" />  
+                  </Link>
+                  <Link
+                    href={`/telecom/simcards/view/${simrecord._id}`}
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    <Eye className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 w-3 cursor-pointer" />  
+                  </Link>
+                  </div>
                 </td>
               </tr>
             ))

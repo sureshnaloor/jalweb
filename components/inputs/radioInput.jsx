@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Radioinput({register, errors, watch, radiochoice}) {
+function Radioinput({register, errors, watch, radiochoice, defaultValue}) {
     const selectedValue = watch(`${radiochoice[0].groupname}`);
   return (
     <div className='w-full flex justify-between'>
@@ -51,6 +51,7 @@ function Radioinput({register, errors, watch, radiochoice}) {
                 value={radiochoice[2].value}
                 name={radiochoice[2].groupname}
                 {...register(radiochoice[2].groupname, {required: true})}
+                defaultValue={defaultValue}
                 
                 className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
