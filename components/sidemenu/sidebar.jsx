@@ -66,7 +66,7 @@ function Sidebar() {
   ];
 
   const telecommenuitems = [
-    { name: "Telecom", link: "/telecom/simcard" },
+    { name: "Telecom", link: "/telecom" },
     { name: "+ Add New SIM ", link: "/telecom/simcards/add" },
     { name: "+ Add New Router", link: "/telecom/router/new" },
     { name: "+ Add New Telephone", link: "/telecom/telephone/new" },  

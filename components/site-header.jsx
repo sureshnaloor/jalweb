@@ -1,5 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 import {
   Construction,
@@ -22,6 +26,9 @@ function Siteheader() {
     { name: "Telecom", path: "/telecom", icon: TabletSmartphone },
   ];
 
+  const pathname = "/" + usePathname().split("/")[1];
+  console.log(pathname);
+
   return (
     <div>
       <header className="shadow-md  bg-zinc-50 w-full font-[sans-serif]  tracking-wide fixed top-0 z-50 ">
@@ -41,12 +48,15 @@ function Siteheader() {
           <div>
             <ul className="lg:flex gap-x-12 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
               {headermenu.map((item, index) => (
-                <li className="mb-6 " key={index}>
+                
+                <li  key={index}>
                   <Link href={item.path}>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center">
+                      <div className="flex items-center tracking-widest">
                         <item.icon className="w-3 h-3 mr-2 pb-[1px] text-stone-600" />
-                        <span className="text-sm font-semibold  text-gray-500">
+                        <span className={clsx(`text-sm font-thin  text-stone-600`,
+              { [` text-sky-900 font-bold italic text-[14px]  `]: pathname === item.path },
+            )}>
                           {item.name}
                         </span>
                       </div>
