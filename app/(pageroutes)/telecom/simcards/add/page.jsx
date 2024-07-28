@@ -47,7 +47,7 @@ function AddSimcard() {
       if (Response.ok) {
         console.log("success", data);
         // setLoading(false);
-        redirect("/telecom/simcard");
+        router.push("/telecom/simcard");
       }
     reset();
     } catch (error) {

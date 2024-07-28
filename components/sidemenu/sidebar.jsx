@@ -70,7 +70,7 @@ function Sidebar() {
     { name: "+ Add New SIM ", link: "/telecom/simcards/add" },
     { name: "+ Add New Router", link: "/telecom/router/new" },
     { name: "+ Add New Telephone", link: "/telecom/telephone/new" },  
-    { name: "  Edit SIM", link: `/telecom/simcard/edit` },
+    { name: "  Edit SIM", link: `/telecom/simcards/edit` },
     {name:" View SIM records", link: `/telecom/simcards/view` },
     
   ];

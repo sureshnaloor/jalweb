@@ -1,4 +1,5 @@
 "use client";
+import { useDebouncedCallback } from "use-debounce";
 
 import React from "react";
 import { Search, Smartphone } from "lucide-react";
@@ -10,7 +11,7 @@ function SearchComponent() {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (value) => {
+  const handleSearch = useDebouncedCallback((value) => {      
     const params = new URLSearchParams(searchParams)
     if (value){
         params.set('query', value)
@@ -19,7 +20,7 @@ function SearchComponent() {
         params.delete('query')
     }
     replace(`${pathname}?${params.toString()}`)
-  }     
+  }     , 300);
  
 
   return (

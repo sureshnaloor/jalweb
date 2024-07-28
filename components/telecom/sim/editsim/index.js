@@ -50,6 +50,13 @@ function Editsimcomponent({ dataform }) {
     try {
       data = { ...data, type: "mobile" };
       console.log(data);
+      await fetch("/api/telecom/simcard", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       if (Response.ok) {
         console.log("success");
@@ -75,6 +82,8 @@ function Editsimcomponent({ dataform }) {
       purchasedate:null,
       notes:null,
     });
+
+    router.push("/telecom/simcard");
 
   };
 
