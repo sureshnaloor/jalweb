@@ -1,18 +1,21 @@
 import clientPromise from "@/lib/mongoconnect";
 import Link from "next/link";
-import SearchComponent from "@/components/ui/utility/Search";
+
 import { Pencil, Trash, Eye } from "lucide-react";
+import Viewsim from "@/components/telecom/sim/viewsim"
 
 
 const Simcards = async ({searchParams}) => {
-  const query = searchParams?.query || "1234567890";
+  const mobile = searchParams?.mobile || "";
+  const empnumber = searchParams?.empnumber || "";
+
   const client = await clientPromise;
   const db = client.db("assetmanage");
-  const simrecords = await db.collection("sim").find({"service-number": {$regex: query, $options: "i"}}).toArray();
+  const simrecords = mobile ? await db.collection("sim").find({"service-number": {$regex: mobile, $options: "i"}}).toArray() : empnumber ? await db.collection("sim").find({"emp-number": {$regex: empnumber, $options: "i"}}).toArray() : await db.collection("sim").find().toArray();
 
   return (
     <>
-    <SearchComponent/>
+    <Viewsim /> 
     <div >
       <table className="text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border">
         <thead className="text-[9px] italic text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
@@ -51,7 +54,7 @@ const Simcards = async ({searchParams}) => {
 
             <th
               scope="col"
-              className="px-2 py-3 min-w-[200px] max-w-[200px] whitespace-nowrap"
+              className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
             >
               Credit Limit / Plan
             </th>
@@ -118,7 +121,7 @@ const Simcards = async ({searchParams}) => {
                   </h2>
                 </td>
 
-                <td className="px-2 py-4 min-w-[200px] max-w-[200px] whitespace-nowrap">
+                <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap">
                   <h1>{simrecord["credit-limit"]} </h1>{" "}  
                   <h2> {simrecord.plan} </h2>
                 </td>
