@@ -11,6 +11,7 @@ import Radioinput from "@/components/inputs/radioInput";
 import { CircleX, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ReadonlyDisplay from "@/components/inputs/readonlyDisplay";
+import toast, { Toaster } from "react-hot-toast";
 
 function Editsimcomponent({ dataform }) {
   const router = useRouter();
@@ -46,10 +47,14 @@ function Editsimcomponent({ dataform }) {
   });
 
   const onSubmit = async (data) => {
+    const notify = () =>
+      toast(
+        `Simcard ${dataform?.["service-number"]} has been updated successfully.`
+      );
     // setLoading(true);
     try {
       data = { ...data, type: "mobile" };
-      console.log(data);
+      // console.log(data);
       await fetch("/api/telecom/simcard", {
         method: "PUT",
         headers: {
@@ -57,34 +62,31 @@ function Editsimcomponent({ dataform }) {
         },
         body: JSON.stringify(data),
       });
-
-      if (Response.ok) {
-        console.log("success");
-        // setLoading(false);
+      notify();
+      setTimeout(() => {
         redirect("/telecom/simcard");
-      }
+      }, 2000);
     } catch (error) {
       // setLoading(false);
-      console.log(error);
+      // console.log(error);
     }
 
     reset({
-      service_number:null,
-      account_number:null,
-      plan:null,
-      emp_number:null,
-      employee_name:null,
-      credit_limit:null,
-      department:null,
-      section:null,
-      location:null,
-      coordinator:null,
-      purchasedate:null,
-      notes:null,
+      service_number: null,
+      account_number: null,
+      plan: null,
+      emp_number: null,
+      employee_name: null,
+      credit_limit: null,
+      department: null,
+      section: null,
+      location: null,
+      coordinator: null,
+      purchasedate: null,
+      notes: null,
     });
 
-    router.push("/telecom/simcard");
-
+    // router.push("/telecom/simcard");
   };
 
   const planchoice = [
@@ -130,7 +132,7 @@ function Editsimcomponent({ dataform }) {
   return (
     <>
       <div className="w-full pb-12 bg-stone-100 max-w-5xl mt-1 mx-auto max-h-[900px] border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-        {" "}
+        
         <div className="flex  bg-stone-200 justify-between w-full mb-2 pl-3 py-1  shadow shadow-gray-300 border-b-2 border-blue-100 rounded-lg">
           <h2 className="text-[14px] font-bold text-gray-900 dark:text-stone-500">
             Edit existing Simcard.
@@ -326,12 +328,27 @@ function Editsimcomponent({ dataform }) {
           <div className="mt-3 w-1/2 mx-auto">
             <button
               type="submit"
-              className={`w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}            >
+              className={`w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+            >
               {" "}
               Edit the simcard
             </button>
           </div>
         </form>
+        <div className="mt-12 w-1/2 mx-auto">
+          <Toaster
+            toastOptions={{
+              className: "",
+              style: {
+                border: "1px solid #713200",
+                padding: "8px",
+                color: "#111200",
+                backgroundColor: "#89CFF0",
+                fontSize: "12px",
+              },
+            }}
+          />
+        </div>
       </div>
     </>
   );
