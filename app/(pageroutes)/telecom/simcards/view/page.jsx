@@ -13,7 +13,7 @@ const Simcards = async ({searchParams}) => {
   const client = await clientPromise;
   const db = client.db("assetmanage");
   const simrecords = mobile ? await db.collection("sim").find({"service-number": {$regex: mobile, $options: "i"}}).toArray() : empnumber ? await db.collection("sim").find({"emp-number": {$regex: empnumber, $options: "i"}}).toArray() : await db.collection("sim").find().toArray();
-
+  
   return (
     <>
     <Viewsim /> 

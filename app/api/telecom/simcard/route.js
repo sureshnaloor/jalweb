@@ -1,4 +1,5 @@
 import clientPromise from "@/lib/mongoconnect";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 const client = await clientPromise;
@@ -26,10 +27,13 @@ export async function POST(request, response) {
       createdAt: new Date(),
       updatedAt: new Date()
     });
+    revalidatePath("/telecom/simcards/view");
     return NextResponse.json({
       status: "success",
       data: "simcard added successfully",
     });
+
+    
   } catch (error) {
     return NextResponse.json({
       status: "error",
@@ -62,6 +66,7 @@ export async function PUT(request, response) {
           }
         });
      
+        revalidatePath("/telecom/simcards/view");
     
     return NextResponse.json({
       status: "success",
@@ -84,6 +89,7 @@ export async function DELETE(request, response) {
 
     if (simtodelete) {
       await db.collection("sim").deleteOne({ "service-number": data });
+      revalidatePath("/telecom/simcards/view");
       return NextResponse.json({
         status: "success",
         data: "simcard deleted successfully",

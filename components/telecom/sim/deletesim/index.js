@@ -3,8 +3,10 @@
 import React from "react";
 import { Trash } from "lucide-react";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
-function deletesim(servicenumber) {
+
+function deletesim(servicenumber, router) {
   console.log(servicenumber);
 
   Swal.fire({
@@ -46,15 +48,20 @@ function deletesim(servicenumber) {
 
         icon: "success",
       });
+      router.push("/telecom/simcards/view");
+      router.refresh();
     }
   });
+
+  
 }
 
 function Deletesim({ todeletedata }) {
+  const router = useRouter();
   return (
     <div>
       <button
-        onClick={() => deletesim(todeletedata["service-number"])}
+        onClick={() => deletesim(todeletedata["service-number"], router)}
         className="font-medium text-blue-600 dark:text-blue-500 hover:underline text-sm"
       >
         <Trash className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 w-3 cursor-pointer" />

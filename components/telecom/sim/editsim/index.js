@@ -17,6 +17,7 @@ function Editsimcomponent({ dataform }) {
   const router = useRouter();
   const redirect = (url) => {
     router.push(url);
+    router.refresh();
   };
 
   // const [loading, setLoading] = useState(false);
