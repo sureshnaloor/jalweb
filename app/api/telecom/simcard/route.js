@@ -74,3 +74,26 @@ export async function PUT(request, response) {
     });
   }
 }
+
+export async function DELETE(request, response) {
+  try {
+    const data = await request.json();
+    console.log(data);
+    const simtodelete = await db.collection("sim").findOne({ "service-number": data });
+
+
+    if (simtodelete) {
+      await db.collection("sim").deleteOne({ "service-number": data });
+      return NextResponse.json({
+        status: "success",
+        data: "simcard deleted successfully",
+      });
+    }
+   
+  } catch (error) {
+    return NextResponse.json({
+      status: "error",
+      data: error,
+    });
+  }
+}

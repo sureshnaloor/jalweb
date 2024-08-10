@@ -64,7 +64,7 @@ function Editsimcomponent({ dataform }) {
       });
       notify();
       setTimeout(() => {
-        redirect("/telecom/simcard");
+        redirect("/telecom/simcards/view");
       }, 2000);
     } catch (error) {
       // setLoading(false);
@@ -340,11 +340,14 @@ function Editsimcomponent({ dataform }) {
             toastOptions={{
               className: "",
               style: {
-                border: "1px solid #713200",
+                border: "1px solid #f17346",
                 padding: "8px",
                 color: "#111200",
-                backgroundColor: "#89CFF0",
+                backgroundColor: "#dde5f0",
                 fontSize: "12px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+                boxShadow: "0 0 10px #f17346",
               },
             }}
           />

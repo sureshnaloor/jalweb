@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Pencil, Trash, Eye } from "lucide-react";
 import Viewsim from "@/components/telecom/sim/viewsim"
+import Deletesim from "@/components/telecom/sim/deletesim"
 
 
 const Simcards = async ({searchParams}) => {
@@ -147,12 +148,13 @@ const Simcards = async ({searchParams}) => {
                   >
                     <Pencil className="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 w-3 cursor-pointer" />  
                   </Link>
-                  <Link
+                  {/* <Link
                     href={`/telecom/simcards/delete/${simrecord._id}`}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     <Trash className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 w-3 cursor-pointer" />  
-                  </Link>
+                  </Link> */}
+                  <Deletesim todeletedata={{"service-number": simrecord["service-number"]}} />
                   <Link
                     href={`/telecom/simcards/view/${simrecord._id}`}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
