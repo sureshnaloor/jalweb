@@ -60,9 +60,8 @@ function AddSimcard() {
 
   const planchoice = [
     { value: "", label: "Select Plan" },
-    { value: "Flex50", label: "FLEX50" },
-    { value: "Flex80", label: "FLEX80" },
-    { value: "Flex100", label: "FLEX100" },
+    { value: "BN50", label: "BN50" },
+    { value: "BN80", label: "BN80" },
     
   ];
 
@@ -71,36 +70,57 @@ function AddSimcard() {
     { value: "MM", label: "MMD" },
     { value: "FI", label: "FINANCE" },
     { value: "ES", label: "ESD" },
-    {value: "IT", label: "ITD" },
-    {value: "HR", label: "HRD" },
-    {value: "IS", label: "ISD" },
-    {value: "MG", label: "Management" },
-    
+    { value: "IT", label: "ITD" },
+    { value: "HR", label: "HRD" },
+    { value: "IS", label: "ISD" },
+    { value: "MG", label: "Management" },
   ];
 
   const sectionchoice = [
     { value: "", label: "Select Section" },
     { value: "IT", label: "IT" },
-    { value: "HR", label: "HR" },
-    { value: "IS", label: "IS" },
-    { value: "MM", label: "MM" },
-    { value: "ES", label: "ES" },
-    { value: "FI", label: "FI" },
-    { value: "MG", label: "MG" },
+    { value: "HR-admin", label: "HR-Admin" },
+    { value: "HR-recruitment", label: "HR-Recruitment" },
+    { value: "HR-GR", label: "HR-Government Representative" },
+    { value: "IS-est", label: "ISD-estimation" },
+    { value: "IS-operations", label: "ISD-operations" },
+    { value: "IS-project", label: "ISD-project" },
     
+    { value: "MM-procurement", label: "MMD-procurement" },
+    { value: "MM-warehouse", label: "MMD-warehouse" },
+    { value: "ES-est", label: "ESD-estimation" },
+    { value: "ES-operations", label: "ESD-operations" },
+    { value: "ES-project", label: "ESD-project" },
+    { value: "FI-est", label: "FID-estimation" },
+    
+    { value: "FI", label: "FI" },
+    { value: "MG-Quality", label: "Quality & Safety" },
+    { value: "MG-Management", label: "MGD-Management" },
   ];
 
   const locationchoice = [
     { value: "", label: "Select Location" },
-    { value: "IT", label: "IT" },
-    { value: "HR", label: "HR" },
-    { value: "IS", label: "IS" },
-    { value: "MM", label: "MM" },
-    { value: "ES", label: "ES" },
-    { value: "FI", label: "FI" },
-    { value: "MG", label: "MG" },
-    
-  ];  
+    { value: "Dammam", label: "Dammam" },
+    { value: "Khobar", label: "Khobar" },
+    { value: "Jubail", label: "Jubail" },
+    { value: "ESD Project", label: "ESD Project" },
+    { value: "ISD Project", label: "ISD Project" },
+    { value: "John Hopkins", label: "John Hopkins" },
+    { value: "temp custody", label: "temp custody MMD" },
+    { value: "temp custody", label: "temp custody ISD" },
+    { value: "temp custody", label: "temp custody ESD" },
+  ];
+
+  const coordinatorchoice = [
+    { value: "", label: "Select Coordinator" },
+    { value: "ESD-Waseem Muhammad", label: "ESD-Waseem Muhammad" },
+    { value: "ISD-Kumar Lama", label: "ISD-Kumar Lama" },
+    { value: "MMD-Arnel Balena", label: "MMD-Arnel Balena" },
+    { value: "FI-Asif Iqbal", label: "FI-Asif Iqbal" },
+    { value: "IT-Kashif", label: "IT-Kashif" },
+    { value: "HRD-Gyanendra Adhikari", label: "HRD-Gyanendra Adhikari" },
+    { value: "JH-Aftab", label: "JH-Aftab" },
+  ];
 
   return (
     <div className="w-full pb-12 bg-stone-100 max-w-5xl mt-1 mx-auto max-h-[900px] border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
@@ -250,20 +270,13 @@ function AddSimcard() {
             />
           </div>
           <div className="col-span-1">
-            <Textinput
-              register={register}
-              errors={errors}
-              touchedfields={touchedFields}
-              watch={watch}
-              label="Coordinator:"
-              name="coordinator"
-              isRequired="this is mandatory field"
-              isofPattern={/^[a-zA-Z0-9\s]+$/}
-              placeholder="Type coordinator Name"
-              autocomplete="employee-name"
-              minlengthVal={10}
-              maxlengthVal={40}
-            />{" "}
+          <SelectInput
+                register={register}
+                errors={errors}
+                label="Coordinator"
+                name="coordinator"
+                choice={coordinatorchoice}
+              />
           </div>
           <div className="sm:col-span-1">
             <Dateinput
