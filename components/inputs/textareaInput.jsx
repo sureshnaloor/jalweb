@@ -13,13 +13,14 @@ function TextareaInputcomponent({
   maxlengthVal, 
   errors,
   placeholder,
+  labelcolor
 }) {
   return (
     <div>
       <div>
         <label
           htmlFor={name}
-          className="block mb-2 text-xs font-semibold text-gray-900 dark:text-white"  
+          className={`block mb-2 text-xs font-semibold ${labelcolor} dark:text-white`} 
         >
           {label}
         </label>
@@ -42,7 +43,7 @@ function TextareaInputcomponent({
             },
           })}
           defaultValue={defaultValue}
-          className="block p-2.5 w-full text-xs text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          className="block p-2.5 w-full text-xs text-gray-900 bg-gray-50 placeholder:text-teal-900 placeholder:italic rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder={placeholder}
         ></textarea>
         <div className="flex justify-between">

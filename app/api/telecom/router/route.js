@@ -5,13 +5,11 @@ import { NextResponse } from "next/server";
 const client = await clientPromise;
 const db = client.db("assetmanage");
 
-
 export async function POST(request, response) {
   try {
     const data = await request.json();
     // console.log( data.emp_number, data.service_number, data.account_number, data.employee_name, data.coordinator);
-    const simrecord = await db.collection("telecom").insertOne({  
-      "emp-number": data.emp_number,
+    const simrecord = await db.collection("telecom").insertOne({
       "service-number": data.service_number,
       "account-number": data.account_number,
       "employee-name": data.employee_name,
@@ -19,21 +17,21 @@ export async function POST(request, response) {
       department: data.department,
       location: data.location,
       section: data.section,
-      "credit-limit": data.credit_limit,
+      projectsite: data.projectsite,
+      mincontract: data.mincontract,
       plan: data.plan,
       type: data.type,
       purchasedate: data.purchasedate,
       notes: data.notes,
+      simnumber: data.simnumber,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
     revalidatePath("/telecom/simcards/view");
     return NextResponse.json({
       status: "success",
       data: "simcard added successfully",
     });
-
-    
   } catch (error) {
     return NextResponse.json({
       status: "error",
@@ -45,20 +43,20 @@ export async function POST(request, response) {
 export async function PUT(request, response) {
   try {
     const data = await request.json();
-    // console.log( data.emp_number, data.service_number, data.account_number, data.employee_name, data.coordinator);
     const updatedata = {
-      "emp-number": data.emp_number,
       "account-number": data.account_number,
       "employee-name": data.employee_name,
       coordinator: data.coordinator,
       department: data.department,
       location: data.location,
       section: data.section,
-      "credit-limit": data.credit_limit,
       plan: data.plan,
       type: data.type,
       purchasedate: data.purchasedate,
       notes: data.notes,
+      simnumber: data.simnumber,
+      projectsite: data.projectsite,
+      mincontract: data.mincontract,
       editedAt: new Date(),
       updatedAt: new Date(),
     };
@@ -75,7 +73,9 @@ export async function PUT(request, response) {
       oldtype: data.oldtype,
       oldpurchasedate: data.oldpurchasedate,
       oldnotes: data.oldnotes,
-
+      oldsimnumber: data.oldsimnumber,
+      oldprojectsite: data.oldprojectsite,
+      oldmincontract: data.oldmincontract,      
       updatedAt: new Date(),
     };
 
@@ -85,7 +85,6 @@ export async function PUT(request, response) {
         { "service-number": data.service_number },
         { $set: updatedata }
       );
-
     await db.collection("telecomlog").insertOne(insertdata);
 
     revalidatePath("/telecom/simcards/view");
@@ -106,19 +105,19 @@ export async function DELETE(request, response) {
   try {
     const data = await request.json();
     console.log(data);
-    const simtodelete = await db.collection("telecom").findOne({ "service-number": data });
+    const routertodelete = await db
+      .collection("telecom")
+      .findOne({ "service-number": data });
 
-
-    if (simtodelete) {
+    if (routertodelete) {
       await db.collection("telecom").deleteOne({ "service-number": data });
-      await db.collection("telecomarchive").insertOne(simtodelete);
-      revalidatePath("/telecom/simcards/view");
+      await db.collection("telecomarchive").insertOne(routertodelete);
+      revalidatePath("/telecom/router/view");
       return NextResponse.json({
         status: "success",
-        data: "simcard deleted successfully",
+        data: "router deleted successfully",
       });
     }
-   
   } catch (error) {
     return NextResponse.json({
       status: "error",

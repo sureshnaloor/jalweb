@@ -67,11 +67,15 @@ function Sidebar() {
 
   const telecommenuitems = [
     { name: "Telecom", link: "/telecom" },
-    { name: "+ Add New SIM ", link: "/telecom/simcards/add" },
+    { name: "+ Add New SIM ", link: "/telecom/simcards/new" },
     { name: "+ Add New Router", link: "/telecom/router/new" },
     { name: "+ Add New Telephone", link: "/telecom/telephone/new" },  
-    { name: "  Edit SIM", link: `/telecom/simcards/edit` },
+    { name: "Edit SIM", link: `/telecom/simcards/edit` },
+    {name: "Edit Router", link: `/telecom/router/edit` },
+    {name: "Edit Telephone", link: `/telecom/telephone/edit` },
     {name:" View SIM records", link: `/telecom/simcards/view` },
+    {name:" View Router records", link: `/telecom/router/view` },
+    {name:" View Telephone records", link: `/telecom/telephone/view` },
     
   ];
 

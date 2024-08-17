@@ -12,7 +12,7 @@ const Simcards = async ({searchParams}) => {
 
   const client = await clientPromise;
   const db = client.db("assetmanage");
-  const simrecords = mobile ? await db.collection("sim").find({"service-number": {$regex: mobile, $options: "i"}}).toArray() : empnumber ? await db.collection("sim").find({"emp-number": {$regex: empnumber, $options: "i"}}).toArray() : await db.collection("sim").find().toArray();
+  const simrecords = mobile ? await db.collection("telecom").find({"type": "MOBILE", "service-number": {$regex: mobile, $options: "i"}}).toArray() : empnumber ? await db.collection("telecom").find({"type": "MOBILE", "emp-number": {$regex: empnumber, $options: "i"}}).toArray() : await db.collection("telecom").find({"type": "MOBILE"}).toArray();
   
   return (
     <>
@@ -31,7 +31,7 @@ const Simcards = async ({searchParams}) => {
               scope="col"
               className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
             >
-              Service Number
+              Mobile Number
             </th>
             <th
               scope="col"
@@ -148,12 +148,7 @@ const Simcards = async ({searchParams}) => {
                   >
                     <Pencil className="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 w-3 cursor-pointer" />  
                   </Link>
-                  {/* <Link
-                    href={`/telecom/simcards/delete/${simrecord._id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    <Trash className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 w-3 cursor-pointer" />  
-                  </Link> */}
+                
                   <Deletesim todeletedata={{"service-number": simrecord["service-number"]}} />
                   <Link
                     href={`/telecom/simcards/view/${simrecord._id}`}
