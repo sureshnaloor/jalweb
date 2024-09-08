@@ -13,12 +13,12 @@ const Routerrecords = async () => {
     .find({ type: "ROUTER" })
     .toArray();
 
-    console.log(routerecords[0]["service-number"]);
+    console.log(routerecords.length + "is the number of records");
 
   return (
     <>
       <div>
-        <div> {routerecords[0]["service-number"]}</div>
+        {/* <div> {routerecords[0]["service-number"]}</div> */}
         <table className="text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border">
           <thead className="text-[9px] italic text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
             <tr>

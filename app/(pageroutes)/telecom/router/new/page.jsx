@@ -75,6 +75,7 @@ function AddRouter() {
     { value: "HR", label: "HRD" },
     { value: "IS", label: "ISD" },
     { value: "MG", label: "Management" },
+    { value: "JH", label: "John Hopkins" },
   ];
 
   const sectionchoice = [
@@ -97,6 +98,7 @@ function AddRouter() {
     { value: "FI", label: "FI" },
     { value: "MG-Quality", label: "Quality & Safety" },
     { value: "MG-Management", label: "MGD-Management" },
+    { value: "JH- project", label: "John Hopkins Project" },
   ];
 
   const locationchoice = [
