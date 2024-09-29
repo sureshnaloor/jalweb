@@ -53,9 +53,9 @@ function Siteheader() {
                   <Link href={item.path}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center tracking-widest">
-                        <item.icon className="w-3 h-3 mr-2 pb-[1px] text-stone-600" />
-                        <span className={clsx(`text-sm font-thin  text-stone-600`,
-              { [` text-sky-900 font-bold italic text-[14px]  `]: pathname === item.path },
+                        <item.icon className="w-3 h-3 mr-2 pb-[1px]" />
+                        <span className={clsx(`text-sm font-semibold`,
+              { [` text-red-600 font-bold italic text-[14px] hover:text-red-900 border-b border-red-900 `]: pathname === item.path },
             )}>
                           {item.name}
                         </span>

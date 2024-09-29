@@ -2,28 +2,44 @@ import clientPromise from "@/lib/mongoconnect";
 import Link from "next/link";
 
 import { Pencil, Trash, Eye } from "lucide-react";
-// import Viewrecords from "@/components/telecom/router/viewrecords";
+import Viewrouter from "@/components/telecom/router/viewrecords";
 import Deleterouter from "@/components/telecom/router/deleterecords";
 
-const Routerrecords = async () => {
+const Routerrecords = async ({ searchParams }) => {
+  const router = searchParams?.router || "";
+  const empname = searchParams?.empname || "";
   const client = await clientPromise;
   const db = client.db("assetmanage");
-  const routerecords = await db
-    .collection("telecom")
-    .find({ type: "ROUTER" })
-    .toArray();
+  const routerecords = router
+    ? await db
+        .collection("telecom")
+        .find({
+          type: "ROUTER",
+          "service-number": { $regex: router, $options: "i" },
+        })
+        .toArray()
+    : empname
+    ? await db
+        .collection("telecom")
+        .find({
+          type: "ROUTER",
+          "employee-name": { $regex: empname, $options: "i" },
+        })
+    : await db.collection("telecom").find({ type: "ROUTER" }).toArray();
 
-    console.log(routerecords.length + "is the number of records");
+  console.log(routerecords.length + "is the number of records");
 
   return (
     <>
       <div>
-        {/* <div> {routerecords[0]["service-number"]}</div> */}
+        {" "}
+        <Viewrouter />{" "}
+      </div>
+      <div>
         <table className="text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border">
           <thead className="text-[9px] italic text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
             <tr>
-
-            <th
+              <th
                 scope="col"
                 className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
               >
@@ -60,14 +76,14 @@ const Routerrecords = async () => {
               >
                 Department, <br />
                 Location <br /> & Section
-              </th>             
+              </th>
 
               <th
                 scope="col"
                 className="px-2 py-3 min-w-[150px] max-w-[150px] whitespace-nowrap"
               >
                 Min Contract Duration <br /> Monthly plan (SAR)
-              </th>             
+              </th>
 
               <th
                 scope="col"
@@ -136,11 +152,19 @@ const Routerrecords = async () => {
 
                   <td className="px-2 py-4 min-w-[150px] max-w-[150px] whitespace-nowrap ">
                     <h2 className="font-stone-800 italic text-[10px] font-bold tracking-wider">
-                      {routerecord.mincontract} <span className="text-stone-400 dark:text-stone-200 font-semibold italic"> Months</span>
-                    </h2>               
-                  
+                      {routerecord.mincontract}{" "}
+                      <span className="text-stone-400 dark:text-stone-200 font-semibold italic">
+                        {" "}
+                        Months
+                      </span>
+                    </h2>
+
                     <h2 className="font-stone-800 italic text-[10px] font-bold tracking-wider">
-                      {routerecord.plan} <span className="text-stone-400 dark:text-stone-200 font-semibold italic"> SAR/Month</span>
+                      {routerecord.plan}{" "}
+                      <span className="text-stone-400 dark:text-stone-200 font-semibold italic">
+                        {" "}
+                        SAR/Month
+                      </span>
                     </h2>
                   </td>
 
@@ -161,13 +185,35 @@ const Routerrecords = async () => {
                   <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
                     <div className="flex justify-start items-center gap-3">
                       <Link
-                        href={{pathname: `/telecom/router/edit/${routerecord._id}`, query: {type: routerecord.type, department: routerecord.department, section: routerecord.section, location: routerecord.location, plan: routerecord.plan,  purchasedate: routerecord.purchasedate, "account-number": routerecord["account-number"], "service-number": routerecord["service-number"], "employee-name": routerecord["employee-name"], coordinator: routerecord.coordinator, notes: routerecord.notes, mincontract: routerecord.mincontract, projectsite: routerecord.projectsite, simnumber: routerecord.simnumber}}} 
+                        href={{
+                          pathname: `/telecom/router/edit/${routerecord._id}`,
+                          query: {
+                            type: routerecord.type,
+                            department: routerecord.department,
+                            section: routerecord.section,
+                            location: routerecord.location,
+                            plan: routerecord.plan,
+                            purchasedate: routerecord.purchasedate,
+                            "account-number": routerecord["account-number"],
+                            "service-number": routerecord["service-number"],
+                            "employee-name": routerecord["employee-name"],
+                            coordinator: routerecord.coordinator,
+                            notes: routerecord.notes,
+                            mincontract: routerecord.mincontract,
+                            projectsite: routerecord.projectsite,
+                            simnumber: routerecord.simnumber,
+                          },
+                        }}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         <Pencil className="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 w-3 cursor-pointer" />
                       </Link>
-                      
-                      <Deleterouter todeletedata={{"service-number": routerecord["service-number"]}} /> 
+
+                      <Deleterouter
+                        todeletedata={{
+                          "service-number": routerecord["service-number"],
+                        }}
+                      />
                       <div
                         // href={`/telecom/router/view/${simrecord._id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

@@ -18,7 +18,7 @@ function Mainsidebar() {
             <li>
               <a
                 href="/upgrade"
-                className="flex items-center p-1 text-gray-500 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+                className="flex items-center p-1 font-bold text-yellow-500 hover:text-yellow-700 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
               >
                 <span className="ms-3">Upgrade to Pro</span>
               </a>
