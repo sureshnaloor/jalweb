@@ -24,7 +24,7 @@ function Homesidemenu({ primarymenuitems }) {
             className={clsx(
               `flex items-center justify-between text-stone-500 hover:text-stone-700 hover:font-bold transition duration-75 rounded-lg hover:bg-gray-100 cursor-pointer`,
               {
-                [` text-orange-600 hover:text-orange-900 font-bold text-13px] border-b-[1px] border-b-stone-100 `]:
+                [`text-white bg-blue-300 hover:bg-blue-400 font-semibold text-[12px] px-1 py-2 rounded-md shadow-md`]:
                   pathname === item.link || subpath === item.link,
               }
             )}

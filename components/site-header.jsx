@@ -48,18 +48,19 @@ function Siteheader() {
           <div>
             <ul className="lg:flex gap-x-12 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
               {headermenu.map((item, index) => (
-                
-                <li  key={index}>
+                <li key={index}>
                   <Link href={item.path}>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center tracking-widest">
-                        <item.icon className="w-3 h-3 mr-2 pb-[1px]" />
-                        <span className={clsx(`text-sm font-semibold`,
-              { [` text-red-600 font-bold italic text-[14px] hover:text-red-900 border-b border-red-900 `]: pathname === item.path },
-            )}>
-                          {item.name}
-                        </span>
-                      </div>
+                    <div className={clsx(
+                      "flex items-center tracking-widest px-3 py-2 rounded-md transition duration-75",
+                      {
+                        "bg-blue-300 text-white font-semibold text-[12px] shadow-md hover:bg-blue-400": pathname === item.path,
+                        "text-stone-500 hover:text-stone-700 hover:bg-gray-100": pathname !== item.path
+                      }
+                    )}>
+                      <item.icon className="w-3 h-3 mr-2 pb-[1px]" />
+                      <span className="text-sm font-semibold">
+                        {item.name}
+                      </span>
                     </div>
                   </Link>
                 </li>
