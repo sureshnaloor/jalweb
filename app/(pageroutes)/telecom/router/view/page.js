@@ -1,9 +1,11 @@
 import clientPromise from "@/lib/mongoconnect";
 import Link from "next/link";
-
 import { Pencil, Trash, Eye } from "lucide-react";
 import Viewrouter from "@/components/telecom/router/viewrecords";
 import Deleterouter from "@/components/telecom/router/deleterecords";
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({ subsets: ['latin'] });
 
 const Routerrecords = async ({ searchParams }) => {
   const router = searchParams?.router || "";
@@ -32,158 +34,71 @@ const Routerrecords = async ({ searchParams }) => {
   return (
     <>
       <div>
-        {" "}
-        <Viewrouter />{" "}
+        <Viewrouter />
       </div>
-      <div>
-        <table className="text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border">
-          <thead className="text-[9px] italic text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400 border-collapse border">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
-              >
-                Type
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
-              >
-                Acc. No.
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
-              >
-                Service Number
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[150px] max-w-[150px] whitespace-nowrap"
-              >
-                Emp Name
-              </th>
-              <th
-                scope="col"
-                className="px-2 min-w-[150px] max-w-[150px] py-3 whitespace-nowrap"
-              >
-                Coordinator
-              </th>
-
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[150px] max-w-[150px] whitespace-nowrap"
-              >
-                Department, <br />
-                Location <br /> & Section
-              </th>
-
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[150px] max-w-[150px] whitespace-nowrap"
-              >
-                Min Contract Duration <br /> Monthly plan (SAR)
-              </th>
-
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
-              >
-                SIM Serial#
-              </th>
-
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
-              >
-                Date purchased:
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 min-w-[100px] max-w-[100px] whitespace-nowrap"
-              >
-                Action
-              </th>
+              <th scope="col" className="px-4 py-3">Type</th>
+              <th scope="col" className="px-4 py-3">Acc. No.</th>
+              <th scope="col" className="px-4 py-3">Service Number</th>
+              <th scope="col" className="px-4 py-3">Emp Name</th>
+              <th scope="col" className="px-4 py-3">Coordinator</th>
+              <th scope="col" className="px-4 py-3">Department, Location & Section</th>
+              <th scope="col" className="px-4 py-3">Min Contract Duration & Monthly plan (SAR)</th>
+              <th scope="col" className="px-4 py-3">SIM Serial#</th>
+              <th scope="col" className="px-4 py-3">Date purchased</th>
+              <th scope="col" className="px-4 py-3">Action</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+          <tbody>
             {routerecords.length > 0 ? (
-              routerecords.map((routerecord) => (
+              routerecords.map((routerecord, index) => (
                 <tr
                   key={routerecord._id}
-                  className="odd:bg-white odd:dark:bg-gray-900 min-w-[1100] max-w-[1100px] even:bg-gray-100 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                  className={`${
+                    index % 2 === 0 ? 'bg-white' : 'bg-gray-100'
+                  } hover:bg-gray-100 transition-colors duration-200 ease-in-out text-[12px]`}
                 >
-                  <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
-                    <h2 className="font-stone-800 italic text-[10px] font-bold tracking-wider">
-                      {routerecord.type}
-                    </h2>
+                  <td className="px-4 py-3">
+                    <span className="font-semibold text-indigo-600">{routerecord.type}</span>
                   </td>
-                  <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap tracking-wider font-semibold italic text-[10px]">
-                    {routerecord["account-number"]}
+                  <td className="px-4 py-3">
+                    <span className={`${robotoMono.className} font-medium text-gray-800`}>{routerecord["account-number"]}</span>
                   </td>
-                  <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap font-semibold tracking-wider text-[10px] italic">
-                    {routerecord["service-number"]}
+                  <td className="px-4 py-3">
+                    <span className={`${robotoMono.className} font-medium text-blue-600`}>{routerecord["service-number"]}</span>
                   </td>
-
-                  <td className="px-2 py-4 min-w-[150px] max-w-[150px] whitespace-nowrap">
-                    <h2 className="text-stone-400 dark:text-stone-200 font-semibold italic">
-                      {" "}
-                      {routerecord["employee-name"]}
-                    </h2>
+                  <td className="px-4 py-3">
+                    <span className="text-green-600">{routerecord["employee-name"]}</span>
                   </td>
-
-                  <td className="px-2 py-4 min-w-[150px] max-w-[150px] whitespace-nowrap">
-                    {routerecord.coordinator}
+                  <td className="px-4 py-3">{routerecord.coordinator}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex flex-col">
+                      <span className="font-semibold">{routerecord.department}</span>
+                      <span className="text-gray-600 italic">{routerecord.location}</span>
+                      <span>{routerecord.section}</span>
+                    </div>
                   </td>
-
-                  <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap flex flex-col justify-center">
-                    <h1 className="text-stone-600 dark:text-stone-200 font-bold">
-                      {routerecord.department}{" "}
-                    </h1>{" "}
-                    <h2 className="text-stone-400 dark:text-stone-200 font-semibold italic">
-                      {" "}
-                      {routerecord.location}{" "}
-                    </h2>{" "}
-                    <h2 className="text-stone-600 dark:text-stone-200">
-                      {" "}
-                      {routerecord.section}
-                    </h2>
+                  <td className="px-4 py-3">
+                    <div className="flex flex-col">
+                      <span className={`${robotoMono.className} font-medium text-purple-600`}>{routerecord.mincontract} Months</span>
+                      <span className={`${robotoMono.className} font-medium text-orange-600`}>{routerecord.plan} SAR/Month</span>
+                    </div>
                   </td>
-
-                  <td className="px-2 py-4 min-w-[150px] max-w-[150px] whitespace-nowrap ">
-                    <h2 className="font-stone-800 italic text-[10px] font-bold tracking-wider">
-                      {routerecord.mincontract}{" "}
-                      <span className="text-stone-400 dark:text-stone-200 font-semibold italic">
-                        {" "}
-                        Months
-                      </span>
-                    </h2>
-
-                    <h2 className="font-stone-800 italic text-[10px] font-bold tracking-wider">
-                      {routerecord.plan}{" "}
-                      <span className="text-stone-400 dark:text-stone-200 font-semibold italic">
-                        {" "}
-                        SAR/Month
-                      </span>
-                    </h2>
+                  <td className="px-4 py-3">
+                    <span className={`${robotoMono.className} font-medium text-red-600`}>{routerecord.simnumber}</span>
                   </td>
-
-                  <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
-                    <h2 className="font-stone-800 italic text-[10px] font-bold tracking-wider">
-                      {routerecord.simnumber}
-                    </h2>
-                  </td>
-
-                  <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
-                    <h2 className="font-stone-800 italic text-[10px]">
+                  <td className="px-4 py-3">
+                    <span className="text-gray-700">
                       {routerecord["purchasedate"]
-                        ? routerecord["purchasedate"].split("T")[0]
-                        : null}
-                    </h2>
+                        ? new Date(routerecord["purchasedate"]).toLocaleDateString()
+                        : 'N/A'}
+                    </span>
                   </td>
-
-                  <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap ">
-                    <div className="flex justify-start items-center gap-3">
+                  <td className="px-4 py-3">
+                    <div className="flex items-center space-x-2">
                       <Link
                         href={{
                           pathname: `/telecom/router/edit/${routerecord._id}`,
@@ -204,55 +119,25 @@ const Routerrecords = async ({ searchParams }) => {
                             simnumber: routerecord.simnumber,
                           },
                         }}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="text-green-500 hover:text-green-700"
                       >
-                        <Pencil className="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 w-3 cursor-pointer" />
+                        <Pencil className="w-3 h-3" />
                       </Link>
-
-                      <Deleterouter
+                      <Deleterouter className="text-red-300 hover:text-red-700 w-3 h-3"
                         todeletedata={{
                           "service-number": routerecord["service-number"],
                         }}
                       />
-                      <div
-                        // href={`/telecom/router/view/${simrecord._id}`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                      >
-                        <Eye className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 w-3 cursor-pointer" />
+                      <div className="text-blue-500 hover:text-blue-700 cursor-pointer">
+                        <Eye className="w-3 h-3" />
                       </div>
                     </div>
                   </td>
                 </tr>
               ))
             ) : (
-              <tr className="animate-pulse bg-gray-100 dark:bg-gray-800 border-b text-gray-300">
-                <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap tracking-wider font-semibold italic text-[10px]">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
-                <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap font-semibold tracking-wider text-[10px] italic">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
-
-                <td className="px-2 py-4 min-w-[200px] max-w-[200px] whitespace-nowrap flex flex-col justify-center">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
-
-                <td className="px-2 py-4 min-w-[200px] max-w-[200px] whitespace-nowrap">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
-                <td className="px-2 py-4 min-w-[200px] max-w-[200px] whitespace-nowrap flex flex-col justify-center">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
-
-                <td className="px-2 py-4 min-w-[200px] max-w-[200px] whitespace-nowrap">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
-                <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap font-semibold tracking-wider text-[10px] italic">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
-                <td className="px-2 py-4 min-w-[100px] max-w-[100px] whitespace-nowrap font-semibold tracking-wider text-[10px] italic">
-                  <h1 className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></h1>
-                </td>
+              <tr>
+                <td colSpan="10" className="px-4 py-3 text-center">No records found</td>
               </tr>
             )}
           </tbody>
